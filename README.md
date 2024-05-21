@@ -53,3 +53,7 @@ CVRP 问题，即包含容量限制的车辆路径优化问题（Capacity Vehicl
 算法的输出结果如下图所示，图中使用不同的颜色标记了不同车辆的访问路径。取得极小化路径长度为 815.29。
 
 ![遗传算法的优化结果](./image/route.png)
+
+## 开源地址
+
+本人已将代码基于 LGPL-3.0 许可证开源至 Gitee 平台，仓库地址为 [BOXonline_1396529/GA-CVRP-opt](https://gitee.com/BOXonline_1396529/GA-CVRP-opt)，可以在遵照许可证规范的前提下自行肆意修改取用。
