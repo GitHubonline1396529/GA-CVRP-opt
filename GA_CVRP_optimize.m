@@ -120,19 +120,23 @@ iterPop = initialPop;
 % 初始化假设精英个体的适应度函数值为 0，这个数值会在循环开始之后立即被初始种群中的
 % 精英个体的适应度函数值覆盖
 elitistFitnessValues = 0;
+elitistFound = false; % 一个 Flag 变量，表示有没有找到精英个体
 
 for i = 1:maxIter
     fitnessValues = fitness( ...
         iterPop, OD_mat, numCustomers, numVehicles, demands, capacity);
-    roulette_wheel_selection(iterPop, fitnessValues);
 
     % 有必要采用精英（elitism）策略，提取历史所有代际中的精英个体
     if max(fitnessValues) > elitistFitnessValues
         [elitistFitnessValues, elitistIndex] = max(fitnessValues);
         elitist = iterPop(elitistIndex, :);
+        elitistFound = true;
     end
-    [~, minFitnessIndex] = min(fitnessValues);
-    iterPop(minFitnessIndex, :) = elitist;
+
+    if elitistFound
+        [~, minFitnessIndex] = min(fitnessValues);
+        iterPop(minFitnessIndex, :) = elitist;
+    end
 
     if dynamic_plot % 如果选择了动态绘图
         record_minCost_elitist = [ 
@@ -153,6 +157,8 @@ for i = 1:maxIter
         drawnow;
         hold off; % 关闭 hold 以防止影响后续图片绘制
     end
+
+    iterPop = roulette_wheel_selection(iterPop, fitnessValues);
 
     % 进行交叉和变异
     iterPop = crossover( ...
