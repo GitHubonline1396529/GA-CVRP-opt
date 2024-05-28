@@ -36,7 +36,9 @@ for i = 1:num_individuals
             temp_individual(j) = temp_individual(swap_idx);
             temp_individual(swap_idx) = temp;
         
-            if constrict(temp_individual, numCustomers, numVehicles, demands, capacity)
+            if constrict( ...
+                    temp_individual, numCustomers, ...
+                    numVehicles, demands, capacity)
                 % 执行交换操作
                 temp = new_pop(i, j);
                 new_pop(i, j) = new_pop(i, swap_idx);
