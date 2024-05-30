@@ -1,6 +1,6 @@
 function [bestIndividual, minCost, iterPop, fitnessValues] ...
     = GA_CVRP_optimize( ...
-    OD_mat, numVehicles, demands, capacity, ...
+    Dis_mat, numVehicles, demands, capacity, ...
     popSize, maxIter, pc, pm, ...
     dynamic_plot ...
     )
@@ -10,12 +10,12 @@ function [bestIndividual, minCost, iterPop, fitnessValues] ...
 %    局最优解搜索下降进度，会在命令行窗口输出提示信息。
 % 
 %    [bestIndividual, minCost] = GA_CVRP_OPTIMIZE( ...
-%             OD_mat, numVehicles, demands, capacity, ...
+%             Dis_mat, numVehicles, demands, capacity, ...
 %             popSize, maxIter, pc, pm)
 % 
 %    [bestIndividual, minCost, iterPop, fitnessValues] ...
 %        = GA_CVRP_OPTIMIZE( ...
-%             OD_mat, numVehicles, demands, capacity, ...
+%             Dis_mat, numVehicles, demands, capacity, ...
 %             popSize, maxIter, pc, pm, ...
 %             dynamic_plot ...
 %     )
@@ -28,7 +28,7 @@ function [bestIndividual, minCost, iterPop, fitnessValues] ...
 %        4. 无法确保找到全局最优解。
 % 
 %    输入参数
-%        OD_mat - 所有节点之间的 OD 矩阵。此处要求 OD 矩阵中的第一个节点是 CVRP 
+%        Dis_mat - 所有节点之间的距离矩阵。此处要求距离矩阵中的第一个节点是 CVRP 
 %            问题的配送中心节点，即 Depot 节点。
 %        numVehicles - CVRP 问题中运载工具的数量
 %        demands - CVRP 问题中各个顾客节点的需求量的一维向量
@@ -74,7 +74,7 @@ disp(" ")
 disp("initializing variables...")
 
 % 根据 OD 矩阵计算顾客数量
-numNodes = length(OD_mat); % 计算出节点的总数量
+numNodes = length(Dis_mat); % 计算出节点的总数量
 numCustomers = numNodes - 1; % 第一个节点是 Depot，所以真实的顾客数量要减去 1
 
 % 打印模型的基本参数
@@ -108,8 +108,8 @@ fitnessValues = zeros(popSize, 1);
 % 如果选择了绘制实时动态图，就初始化几个向量来存储各迭代次数下的历史最优个体的最短
 % 路程列表和当前种群最优个体的最短路程
 if dynamic_plot
-    record_minCost_elitist = [];
-    record_minCost_pop = [];
+    record_minCost_elitist = zeros(1, maxIter);
+    record_minCost_pop = zeros(1, maxIter);
     figure; % 初始化一个图对象以便绘制
 end
 
@@ -124,7 +124,7 @@ elitistFound = false; % 一个 Flag 变量，表示有没有找到精英个体
 
 for i = 1:maxIter
     fitnessValues = fitness( ...
-        iterPop, OD_mat, numCustomers, numVehicles, demands, capacity);
+        iterPop, Dis_mat, numCustomers, numVehicles, demands, capacity);
 
     % 有必要采用精英（elitism）策略，提取历史所有代际中的精英个体
     if max(fitnessValues) > elitistFitnessValues
@@ -139,15 +139,13 @@ for i = 1:maxIter
     end
 
     if dynamic_plot % 如果选择了动态绘图
-        record_minCost_elitist = [ 
-            record_minCost_elitist, (1 / elitistFitnessValues)];
-        record_minCost_pop = [
-            record_minCost_pop, 1 / max(fitnessValues)];
+        record_minCost_elitist(i) = 1 / elitistFitnessValues;
+        record_minCost_pop(i) = 1 / max(fitnessValues);
         hold on;
-        plot(record_minCost_elitist, ...
+        plot(record_minCost_elitist(1:i), ...
             'Color', 'r', ...
             'LineWidth', 1)
-        plot(record_minCost_pop, ...
+        plot(record_minCost_pop(1:i), ...
             'Color', 'b')
         title("Minimal Cost of Iterations")
         xlabel("Distance")

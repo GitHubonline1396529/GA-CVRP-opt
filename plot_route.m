@@ -44,7 +44,8 @@ for i = 1:length(route) - 1
     endNode = route(i + 1);
         
     % 如果经过节点 0，则更换颜色
-    if startNode == 1 || endNode == 1
+    % if startNode == 1 || endNode == 1
+    if startNode == 1
         colorIndex = mod(colorIndex, num_colors) + 1;
     end
 

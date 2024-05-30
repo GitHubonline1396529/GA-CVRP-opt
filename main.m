@@ -42,22 +42,22 @@ title("Customer Locations and Demands");
 hold off;
 
 %% 初始化参数
-% 首先生成 OD 矩阵
+% 首先生成距离矩阵
 % OD_mat = squareform(pdist(loc));
 
 % 鉴于一些人的电脑里可能没有统计与机器学习工具箱，pdist 函数有可能无法使用
-% 下面的代码也可以获取原问题的 OD 矩阵
-OD_mat = zeros(numCustomers, numCustomers);
+% 下面的代码也可以获取原问题的距离矩阵
+Dis_mat = zeros(numCustomers, numCustomers);
 for i = 1:numCustomers+1
     for j = 1:numCustomers+1
-        OD_mat(i, j) = sqrt(sum((loc(i, :) - loc(j, :)).^2));
+        Dis_mat(i, j) = sqrt(sum((loc(i, :) - loc(j, :)).^2));
     end
 end
 
 % 然后设置各项其他参数
 popSize = 3000; % 种群个数
 numVehicles = 5; % 可用的车辆数
-maxIter = 500; % 限制的最大迭代次数
+maxIter = 1000; % 限制的最大迭代次数
 pc = 0.9; % 交叉概率
 pm = 0.09; % 变异概率
 
@@ -77,7 +77,7 @@ pm = 0.09; % 变异概率
 % 文件。
 
 [bestIndividual, minCost, iterPop, fitnessVales] = GA_CVRP_optimize( ...
-    OD_mat, numVehicles, demands, capacity, ...
+    Dis_mat, numVehicles, demands, capacity, ...
     popSize, maxIter, pc, pm, true);
 
 %% 可视化结果
