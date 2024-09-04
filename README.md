@@ -55,3 +55,9 @@ CVRP 问题，即包含容量限制的车辆路径优化问题（Capacity Vehicl
 ## 开源地址
 
 本人已将代码基于 LGPL-3.0 许可证开源至 Gitee 平台，仓库地址为 [BOXonline_1396529/GA-CVRP-opt](https://gitee.com/BOXonline_1396529/GA-CVRP-opt)，可以在遵照许可证规范的前提下自行肆意修改取用。
+
+由于近日 `roulette_wheel_selection` 文件被 Gitee 判定为违禁文件，无法查看、显示和下载。这是由于文件使用的算法的名称被判断为违禁。这是因为这个算法的名称涉及包含指涉“利用有价之物，来竞争输赢的游戏娱乐方式”的一个汉字，而任何包含这个汉字的内容都会被 Gitee 平台屏蔽。
+
+出于这个原因，我已经向 Gitee 官方提交了 Issue 反馈，但是由于 Issue 里包含这个算法名称，所以 Issue 也被判定为违禁，无法显示。我无话可说。
+
+该问题目前无法解决。我会将后续更新的内容上传到 GitHub，请移步至[相应的 GitHub 仓库](https://github.com/GitHubonline1396529/GA-CVRP-opt)访问内容。
