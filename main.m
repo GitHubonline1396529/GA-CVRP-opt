@@ -1,25 +1,25 @@
-%% Í¨¹ýÒÅ´«Ëã·¨½â¾ö CVRP ÎÊÌâ
-% Ê¾Àý½Å±¾£¬¸Ã½Å±¾°üº¬ÁËÊ¹ÓÃ GA_VRP_optimize Çó½âÎÊÌâµÄÊ¾Àý´úÂë
+%% é€šè¿‡é—ä¼ ç®—æ³•è§£å†³ CVRP é—®é¢˜
+% ç¤ºä¾‹è„šæœ¬ï¼Œè¯¥è„šæœ¬åŒ…å«äº†ä½¿ç”¨ GA_VRP_optimize æ±‚è§£é—®é¢˜çš„ç¤ºä¾‹ä»£ç 
 
-%% ÎÊÌâÃèÊö
-% CVRP ÎÊÌâ£¬¼´°üº¬ÈÝÁ¿ÏÞÖÆµÄ³µÁ¾Â·¾¶ÎÊÌâ£¨Capacity Vehicle Routing Problem£©£¬
-% ÊÇÎïÁ÷ºÍÔËÊäÁìÓòÖÐµÄÒ»¸ö¾­µäÓÅ»¯ÎÊÌâ¡£ÆäÄ¿±êÊÇÈ·¶¨Ò»×é³µÁ¾´ÓÒ»¸öÅäËÍÖÐÐÄ³ö·¢£¬·Ã
-% ÎÊÒ»ÏµÁÐ¿Í»§½Úµã²¢·µ»ØÅäËÍÖÐÐÄµÄ ×îÓÅÂ·¾¶·½°¸¡£¸ÃÎÊÌâµÄÄ¿µÄÊÇÔÚÂú×ãËùÓÐ¿Í»§ÐèÇó
-% ºÍ³µÁ¾ÔËÔØÄÜÁ¦ÏÞÖÆµÄÍ¬Ê±£¬×îÐ¡»¯×ÜÐÐÊ»¾àÀë»ò×Ü³É±¾¡£
+%% é—®é¢˜æè¿°
+% CVRP é—®é¢˜ï¼Œå³åŒ…å«å®¹é‡é™åˆ¶çš„è½¦è¾†è·¯å¾„é—®é¢˜ï¼ˆCapacity Vehicle Routing Problemï¼‰ï¼Œ
+% æ˜¯ç‰©æµå’Œè¿è¾“é¢†åŸŸä¸­çš„ä¸€ä¸ªç»å…¸ä¼˜åŒ–é—®é¢˜ã€‚å…¶ç›®æ ‡æ˜¯ç¡®å®šä¸€ç»„è½¦è¾†ä»Žä¸€ä¸ªé…é€ä¸­å¿ƒå‡ºå‘ï¼Œè®¿
+% é—®ä¸€ç³»åˆ—å®¢æˆ·èŠ‚ç‚¹å¹¶è¿”å›žé…é€ä¸­å¿ƒçš„ æœ€ä¼˜è·¯å¾„æ–¹æ¡ˆã€‚è¯¥é—®é¢˜çš„ç›®çš„æ˜¯åœ¨æ»¡è¶³æ‰€æœ‰å®¢æˆ·éœ€æ±‚
+% å’Œè½¦è¾†è¿è½½èƒ½åŠ›é™åˆ¶çš„åŒæ—¶ï¼Œæœ€å°åŒ–æ€»è¡Œé©¶è·ç¦»æˆ–æ€»æˆæœ¬ã€‚
 
-%% ÇåÀí¹¤×÷Çø
-% Çå¿ÕÖÕ¶ËÄÚÈÝ£»Çå¿Õ±äÁ¿¿Õ¼ä£»¹Ø±ÕËùÓÐ´°¿Ú
+%% æ¸…ç†å·¥ä½œåŒº
+% æ¸…ç©ºç»ˆç«¯å†…å®¹ï¼›æ¸…ç©ºå˜é‡ç©ºé—´ï¼›å…³é—­æ‰€æœ‰çª—å£
 
 clc; clear; close all;
-%% ³õÊ¼»¯ËãÀý
-% ËãÀýÍ¨¹ýËæ»úÊý×ÖÉú³É£¬´úÂëÀ´×Ô MATLAB ¹ÙÍøÎÄµµ¡£ÎÄÕÂ¼°ÍøÖ·Îª£º
+%% åˆå§‹åŒ–ç®—ä¾‹
+% ç®—ä¾‹é€šè¿‡éšæœºæ•°å­—ç”Ÿæˆï¼Œä»£ç æ¥è‡ª MATLAB å®˜ç½‘æ–‡æ¡£ã€‚æ–‡ç« åŠç½‘å€ä¸ºï¼š
 % 
 % Capacitated Vehicle Routing Problem
 % https://www.mathworks.com/help/matlab/math/quantum-capacitated-vehicle-ro
 % uting.html 
 
-%% ËãÀýÉú³É
-% ÏÂÃæµÄ´úÂë¿ÉÒÔÉú³ÉËãÀý
+%% ç®—ä¾‹ç”Ÿæˆ
+% ä¸‹é¢çš„ä»£ç å¯ä»¥ç”Ÿæˆç®—ä¾‹
 
 % Capacitated Vehicle Routing Problem
 rng(1) % For reproducibility
@@ -30,9 +30,9 @@ loc = [depot; randi([-50, 50],numCustomers,2)];
 demands = 100*randi([1, 25],numCustomers,1);
 capacity = 6000;
 
-%% ¿ÉÊÓ»¯ËãÀýÊý¾Ý
-% Ê¹ÓÃÏÂÃæµÄ´úÂë£¬¿ÉÒÔ¶ÔÉú³ÉµÄÊý¾Ý½øÐÐ¿ÉÊÓ»¯£¬»æÖÆÉ¢µãÍ¼¡£ÆäÖÐ£¬Depot ÎªÖÐÑë²Ö¿âµÄ
-% Î»ÖÃ£¬Î»ÓÚ×ø±ê (0, 0) µã¡£
+%% å¯è§†åŒ–ç®—ä¾‹æ•°æ®
+% ä½¿ç”¨ä¸‹é¢çš„ä»£ç ï¼Œå¯ä»¥å¯¹ç”Ÿæˆçš„æ•°æ®è¿›è¡Œå¯è§†åŒ–ï¼Œç»˜åˆ¶æ•£ç‚¹å›¾ã€‚å…¶ä¸­ï¼ŒDepot ä¸ºä¸­å¤®ä»“åº“çš„
+% ä½ç½®ï¼Œä½äºŽåæ ‡ (0, 0) ç‚¹ã€‚
 
 % Plot the locations with demands overlaid
 % figure;
@@ -41,12 +41,12 @@ text(loc(:,1),loc(:,2),["Depot"; num2str((1:numCustomers)')]);
 title("Customer Locations and Demands");
 hold off;
 
-%% ³õÊ¼»¯²ÎÊý
-% Ê×ÏÈÉú³É¾àÀë¾ØÕó
+%% åˆå§‹åŒ–å‚æ•°
+% é¦–å…ˆç”Ÿæˆè·ç¦»çŸ©é˜µ
 % OD_mat = squareform(pdist(loc));
 
-% ¼øÓÚÒ»Ð©ÈËµÄµçÄÔÀï¿ÉÄÜÃ»ÓÐÍ³¼ÆÓë»úÆ÷Ñ§Ï°¹¤¾ßÏä£¬pdist º¯ÊýÓÐ¿ÉÄÜÎÞ·¨Ê¹ÓÃ
-% ÏÂÃæµÄ´úÂëÒ²¿ÉÒÔ»ñÈ¡Ô­ÎÊÌâµÄ¾àÀë¾ØÕó
+% é‰´äºŽä¸€äº›äººçš„ç”µè„‘é‡Œå¯èƒ½æ²¡æœ‰ç»Ÿè®¡ä¸Žæœºå™¨å­¦ä¹ å·¥å…·ç®±ï¼Œpdist å‡½æ•°æœ‰å¯èƒ½æ— æ³•ä½¿ç”¨
+% ä¸‹é¢çš„ä»£ç ä¹Ÿå¯ä»¥èŽ·å–åŽŸé—®é¢˜çš„è·ç¦»çŸ©é˜µ
 Dis_mat = zeros(numCustomers, numCustomers);
 for i = 1:numCustomers+1
     for j = 1:numCustomers+1
@@ -54,33 +54,33 @@ for i = 1:numCustomers+1
     end
 end
 
-% È»ºóÉèÖÃ¸÷ÏîÆäËû²ÎÊý
-popSize = 3000; % ÖÖÈº¸öÊý
-numVehicles = 5; % ¿ÉÓÃµÄ³µÁ¾Êý
-maxIter = 1000; % ÏÞÖÆµÄ×î´óµü´ú´ÎÊý
-pc = 0.9; % ½»²æ¸ÅÂÊ
-pm = 0.09; % ±äÒì¸ÅÂÊ
+% ç„¶åŽè®¾ç½®å„é¡¹å…¶ä»–å‚æ•°
+popSize = 3000; % ç§ç¾¤ä¸ªæ•°
+numVehicles = 5; % å¯ç”¨çš„è½¦è¾†æ•°
+maxIter = 1000; % é™åˆ¶çš„æœ€å¤§è¿­ä»£æ¬¡æ•°
+pc = 0.9; % äº¤å‰æ¦‚çŽ‡
+pm = 0.09; % å˜å¼‚æ¦‚çŽ‡
 
-%% µ÷ÓÃÇó½âÆ÷Çó½âÎÊÌâ
-% ´ËÇó½âÆ÷Îª±¾ÈË 100% ´¿ÊÖ¹¤½³ÐÄ´òÔì¡£ÎªÁË±£Ö¤¼æÈÝÐÔ£¨MATLAB ÖÕ¶ËÔÚÇÐ»»×ÖÌåÖ®ºó¿É
-% ÄÜ³öÏÖÖÐÎÄÂÒÂë£©£¬ÌáÊ¾ÐÅÏ¢Ê¹ÓÃÁËÓ¢ÎÄ¡£
+%% è°ƒç”¨æ±‚è§£å™¨æ±‚è§£é—®é¢˜
+% æ­¤æ±‚è§£å™¨ä¸ºæœ¬äºº 100% çº¯æ‰‹å·¥åŒ å¿ƒæ‰“é€ ã€‚ä¸ºäº†ä¿è¯å…¼å®¹æ€§ï¼ˆMATLAB ç»ˆç«¯åœ¨åˆ‡æ¢å­—ä½“ä¹‹åŽå¯
+% èƒ½å‡ºçŽ°ä¸­æ–‡ä¹±ç ï¼‰ï¼Œæç¤ºä¿¡æ¯ä½¿ç”¨äº†è‹±æ–‡ã€‚
 % 
-% ÎªÁË¼ò»¯ÎÊÌâµÄ½¨Ä££¬²ÉÓÃÕûÐÍÊý¾Ý±àÂëµÄÐÎÊ½¡£±àÂë·½Ê½²Î¿¼ÁË²©¿Í£º
+% ä¸ºäº†ç®€åŒ–é—®é¢˜çš„å»ºæ¨¡ï¼Œé‡‡ç”¨æ•´åž‹æ•°æ®ç¼–ç çš„å½¢å¼ã€‚ç¼–ç æ–¹å¼å‚è€ƒäº†åšå®¢ï¼š
 % 
-% ÓÃÒÅ´«Ëã·¨½â¾öVRPÎÊÌâ
+% ç”¨é—ä¼ ç®—æ³•è§£å†³VRPé—®é¢˜
 % https://blog.csdn.net/panbaoran913/article/details/128250015 
 % 
-% Ëã·¨²ÉÓÃÁË¾«Ó¢²ßÂÔ£¬±£´æ¡¢¼ÇÂ¼ºÍ·µ»ØÀú´úÖÐµÄ×î¾«Ó¢¸öÌå¼°ÆäÊÊÓ¦¶È¡£Í¬Ê±£¬½»²æ¡¢±ä
-% Òì¹ý³Ì²ÉÓÃÁË´øÔ¼ÊøµÄ½»²æ±äÒì²ßÂÔ£¬Èç¹û½»²æ±àÒë²úÉúµÄÐÂµÄ¸öÌåÎÞ·¨Âú×ãÄ£ÐÍÔ¼ÊøµÄÒª
-% Çó£¬Ôò½»²æ¡¢±äÒì½«²»»á·¢Éú¡£¾¡¹ÜËã·¨ÎÞ·¨È·±£ÕÒµ½È«¾Ö×îÓÅ½â£¬µ«¾­¶à´Î²âÊÔ£¬Çó½âÆ÷
-% ÔÚÒ»Ð©Çé¿öÏÂÄÜ¹»È¡µÃµÄ×îÐ¡Â·¾¶¾àÀëÎª 732.00¡£¸Ã½á¹û±£´æÎª ./data/solution.mat 
-% ÎÄ¼þ¡£
+% ç®—æ³•é‡‡ç”¨äº†ç²¾è‹±ç­–ç•¥ï¼Œä¿å­˜ã€è®°å½•å’Œè¿”å›žåŽ†ä»£ä¸­çš„æœ€ç²¾è‹±ä¸ªä½“åŠå…¶é€‚åº”åº¦ã€‚åŒæ—¶ï¼Œäº¤å‰ã€å˜
+% å¼‚è¿‡ç¨‹é‡‡ç”¨äº†å¸¦çº¦æŸçš„äº¤å‰å˜å¼‚ç­–ç•¥ï¼Œå¦‚æžœäº¤å‰ç¼–è¯‘äº§ç”Ÿçš„æ–°çš„ä¸ªä½“æ— æ³•æ»¡è¶³æ¨¡åž‹çº¦æŸçš„è¦
+% æ±‚ï¼Œåˆ™äº¤å‰ã€å˜å¼‚å°†ä¸ä¼šå‘ç”Ÿã€‚å°½ç®¡ç®—æ³•æ— æ³•ç¡®ä¿æ‰¾åˆ°å…¨å±€æœ€ä¼˜è§£ï¼Œä½†ç»å¤šæ¬¡æµ‹è¯•ï¼Œæ±‚è§£å™¨
+% åœ¨ä¸€äº›æƒ…å†µä¸‹èƒ½å¤Ÿå–å¾—çš„æœ€å°è·¯å¾„è·ç¦»ä¸º 732.00ã€‚è¯¥ç»“æžœä¿å­˜ä¸º ./data/solution.mat 
+% æ–‡ä»¶ã€‚
 
 [bestIndividual, minCost, iterPop, fitnessVales] = GA_CVRP_optimize( ...
     Dis_mat, numVehicles, demands, capacity, ...
     popSize, maxIter, pc, pm, true);
 
-%% ¿ÉÊÓ»¯½á¹û
-% Õâ¸öº¯ÊýÄÜ¹»¶ÁÈ¡ÓÅ»¯µÄ½á¹û£¬²¢ÇÒÔÚÍ¼ÖÐÓÃ²»Í¬ÑÕÉ«»æÖÆ¿¨³µµÄÐÐÊ»Â·¾¶¡£
+%% å¯è§†åŒ–ç»“æžœ
+% è¿™ä¸ªå‡½æ•°èƒ½å¤Ÿè¯»å–ä¼˜åŒ–çš„ç»“æžœï¼Œå¹¶ä¸”åœ¨å›¾ä¸­ç”¨ä¸åŒé¢œè‰²ç»˜åˆ¶å¡è½¦çš„è¡Œé©¶è·¯å¾„ã€‚
 
 plot_route(loc, bestIndividual)
